@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CityCare Hospital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#0f6efd;
+      --bg:#0f172a;
+      --card:#1e293b;
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+    }
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Inter',sans-serif;
+      scroll-behavior:smooth;
+    }
+    body{
+      background:var(--bg);
+      color:var(--text);
+      transition:background 0.3s,color 0.3s;
+    }
+    header{
+      position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: var(--header-bg);
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    /* Responsive Navbar */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+}
+
+#mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: rgba(15, 23, 42, 0.95);
+  z-index: 200;
+  overflow-y: auto; /* Scrollable menu */
+  padding-top: 60px;
+}
+
+#mobile-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+#mobile-nav ul li a,
+#mobile-nav ul li button {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+
+
+  @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 250;
+  }
+}
+
+
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      color:var(--accent);
+    }
+    .brand img{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+    nav a{
+      text-decoration:none;
+      color:var(--text);
+      font-weight:600;
+      transition:color 0.3s;
+    }
+    nav a:hover{
+      color:var(--accent);
+    }
+ .hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background image wrapper */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Background images */
+.hero-bg img {
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: scale(1.05) translateX(0);
+  transition: opacity 1.2s ease-in-out, transform 6s ease-in-out;
+}
+
+/* Active image visible */
+.hero-bg img.active {
+  opacity: 1;
+  transform: scale(1.1) translateX(-2%);
+}
+
+/* Dark overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  z-index: 1;
+}
+
+/* Text content above overlay */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  max-width: 700px;
+}
+
+
+    @keyframes 
+    fadeIn{
+      from{
+      opacity:0;
+      transform:translateY(20px);
+    }
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+    }
+    .hero h1{
+      font-size:2.5rem;
+      margin-bottom:10px;
+    }
+    .hero p{
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+    .btn{
+      padding:10px 18px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+      transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:white;
+    }
+    .btn:hover{
+      transform:scale(1.05);
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+    main{
+      padding:80px 20px 40px;
+      margin-top:60px;
+    }
+    #specialities{
+      margin-top: 50px;
+    }
+    h2{
+      text-align:center;
+      margin-bottom:20px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:var(--card);
+      padding:16px;
+      border-radius:12px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      transition:transform 0.3s ease,box-shadow 0.3s ease,background 0.3s,color 0.3s;
+    
+      text-align:center;
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+    .card img.icon{
+      width:48px;
+      height:48px;
+      margin-bottom:8px;
+    }
+    form input,form select,form textarea{
+      width:100%;
+      padding:8px;
+      margin-bottom:10px;
+      border-radius:6px;
+      border:1px solid #334155;
+      background:#0f172a;
+      color:white;
+    }
+    footer{
+      background:#1e293b;
+      color:white;
+      text-align:center;
+      padding:20px;
+      border-top-left-radius:16px;
+      border-top-right-radius:16px;
+    }
+    /* Modal Styles */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.7);
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+    }
+    .modal-content{
+      background:#1e293b;
+      padding:20px;
+      border-radius:12px;
+      max-width:500px;
+      width:90%;
+      position:relative;
+    }
+    .close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      cursor:pointer;
+      font-size:20px;
+    }
+    #ad{
+      padding-top: 70px;
+    }
+    .receipt{
+      display:none;
+      background:#fff;
+      color:#000;
+      padding:20px;
+      border-radius:12px;
+    }
+    .receipt h3{
+      text-align:center;
+      margin:0 0 10px 0;
+    }
+    .success-animation{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .checkmark{
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      display:block;
+      stroke-width:2;
+      stroke:#4caf50;
+      stroke-miterlimit:10;
+      box-shadow:inset 0px 0px 0px #4caf50;
+      animation:fill .4s ease-in-out .4s forwards,scale .3s ease-in-out .9s both;margin:0 auto 10px auto;
+    }
+    @keyframes
+     fill{
+      100%{
+      box-shadow:inset 0px 0px 0px 30px #4caf50;
+    }
+  }
+    @keyframes
+     scale{
+      0%,100%{
+      transform:none;
+    }
+    50%{
+      transform:scale3d(1.1,1.1,1);
+    }
+  }
+    /* Reviews Slider */
+    .reviews-container {
+    display:flex;
+    overflow-x:hidden;
+    scroll-behavior:smooth;
+    gap:16px;
+  }
+  .review-card {
+    min-width:250px;
+    flex:0 0 auto;
+  }
+  </style>
+</head>
+<body class="dark">
+  <header>
+  <div class="brand">
+    <img src="2966327.png" alt="Logo">
+    CityCare Hospital
+  </div>
+
+  <!-- Hamburger Button -->
+  <button class="menu-toggle" id="menu-toggle">☰</button>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<nav id="mobile-nav">
+  <ul>
+    <li><a href="#home" onclick="closeMenu()">Home</a></li>
+    <li><a href="#doctors" onclick="closeMenu()">Doctors</a></li>
+    <li><a href="#specialities" onclick="closeMenu()">Specialities</a></li>
+    <li><a href="#reviews" onclick="closeMenu()">Patient Reviews</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact Us</a></li>
+    <li><button id="theme-toggle" class="btn btn-primary">Light</button></li>
+  </ul>
+</nav>
+
+
+
+  <section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="bg.jpg" class="active">
+    <img src="bg2.jpg">
+    <img src="bg3.jpg">
+    <img src="bg4.jpg">
+  </div>
+
+  <div class="hero-content">
+    <h1>Welcome to CityCare Hospital</h1>
+    <p>Providing world-class medical care with compassion and cutting-edge technology. Your health is our priority.</p>
+    <button class="btn btn-primary" onclick="document.getElementById('appointmentModal').style.display='flex'">Book Appointment</button>
+  </div>
+</section>
+
+
+
+  <main>
+    <section id="doctors">
+      <h2>Our Doctors</h2>
+      <div class="grid">
+        <div class="card"><img src="akash.jpg" style="width:100%;border-radius:8px;margin-bottom:8px"><h3>Dr. Akash Kumar</h3><p>Cardiologist</p></div>
+        <div class="card"><img src="akash.jpg" style="width:100%;border-radius:8px;margin-bottom:8px"><h3>Dr. Akash Kumar</h3><p>Neurologist</p></div>
+        <div class="card"><img src="akash.jpg" style="width:100%;border-radius:8px;margin-bottom:8px"><h3>Dr. Akash Kumar</h3><p>Orthopedic Surgeon</p></div>
+        <div class="card"><img src="akash.jpg" style="width:100%;border-radius:8px;margin-bottom:8px"><h3>Dr. Akash Kumar</h3><p>Gynecologist</p></div>
+      </div>
+    </section>
+
+    <section id="specialities">
+      <h2>Departments & Specialities</h2>
+      <div class="grid">
+        <div class="card"><img class="icon" src="medical-check.png"><h3>Cardiology</h3><p>Heart disease treatment, ECG, angioplasty, bypass surgery.</p></div>
+        <div class="card"><img class="icon" src="brain.png"><h3>Neurology</h3><p>Stroke care, epilepsy treatment, neuro surgeries, EEG facilities.</p></div>
+        <div class="card"><img class="icon" src="x-ray.png"><h3>Orthopedics</h3><p>Joint replacement, spine surgery, sports injury care.</p></div>
+        <div class="card"><img class="icon" src="pediatric.png"><h3>Pediatrics</h3><p>Child health checkups, immunization, NICU care.</p></div>
+        <div class="card"><img class="icon" src="first-aid-kit.png"><h3>General Medicine</h3><p>Fever, diabetes, thyroid & general health consultation.</p></div>
+        <div class="card"><img class="icon" src="baby.png"><h3>Gynecology</h3><p>Pregnancy care, deliveries, infertility treatment.</p></div>
+        <div class="card"><img class="icon" src="2966383.png"><h3>ENT</h3><p>Ear, nose, throat checkups and surgeries.</p></div>
+        <div class="card"><img class="icon" src="3774299.png"><h3>Dermatology</h3><p>Skin care, acne, cosmetic dermatology, laser treatment.</p></div>
+        <div class="card"><img class="icon" src="medical-scan.png"><h3>Radiology</h3><p>X-ray, MRI, CT Scan, Ultrasound facilities.</p></div>
+        <div class="card"><img class="icon" src="2967324.png"><h3>Emergency</h3><p>24x7 Trauma care, ambulance services, ICU facilities.</p></div>
+      </div>
+    </section>
+
+    <section id="reviews" style="margin-top:40px">
+  <h2>Patient Reviews</h2>
+  <div style="position:relative;max-width:100%;overflow:hidden">
+    <button class="btn" id="prevReview" style="position:absolute;left:0;top:50%;transform:translateY(-50%);z-index:5">&#10094;</button>
+    <div class="reviews-container" id="reviewSlider">
+      <div class="card review-card"><img src="akash.jpg" style="width:60px;height:60px;border-radius:50%;margin-bottom:8px"><p><strong>Akash Kumar</strong></p><p>"Excellent service, caring doctors and staff!"</p></div>
+      <div class="card review-card"><img src="akash.jpg" style="width:60px;height:60px;border-radius:50%;margin-bottom:8px"><p><strong>Sumit</strong></p><p>"They treated my mother with utmost care. Highly recommended!"</p></div>
+      <div class="card review-card"><img src="akash.jpg" style="width:60px;height:60px;border-radius:50%;margin-bottom:8px"><p><strong>Soheil</strong></p><p>"Quick service and great facilities."</p></div>
+    </div>
+    <button class="btn" id="nextReview" style="position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:5">&#10095;</button>
+  </div>
+</section>
+
+    <section id="contact" style="margin-top:40px">
+      <h2>Contact Us</h2>
+      <div class="grid">
+        <div class="card" id="ad"><p><strong>Address:</strong> South Extension Part-1, YourCity</p><p><strong>Phone:</strong> +91 7703******</p><p><strong>Email:</strong>querysolver3@gmail.com</p><p><strong>Timings:</strong> Mon - Sat: 9am - 9pm</p></div>
+        <div class="card">
+
+          <form action="sendmail.php" method="POST">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <input type="tel" name="phone" placeholder="Your Phone" required>
+  <textarea name="message" placeholder="Your Message" required></textarea>
+  <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Appointment Modal & Receipt same as previous code -->
+  <div class="modal" id="appointmentModal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('appointmentModal').style.display='none'">&times;</span>
+      <form id="appointmentForm">
+        <input type="text" id="pname" placeholder="Patient Name" required>
+        <input type="number" id="page" placeholder="Age" required>
+        <select id="pgender" required>
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+        <input type="date" id="pdate" required>
+        <select id="pdepartment" required>
+          <option value="">Select Department</option>
+          <option value="Cardiology">Cardiology</option>
+          <option value="Neurology">Neurology</option>
+          <option value="Orthopedics">Orthopedics</option>
+        </select>
+        <select id="pdoctor" required>
+          <option value="">Select Doctor</option>
+        </select>
+        <select id="ppayment" required>
+          <option value="">Payment Mode</option>
+          <option>Cash</option>
+          <option>Card</option>
+          <option>UPI</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+
+       <div class="receipt" id="receipt" style="font-family:Arial,sans-serif;color:#000;background:#fff;padding:20px;border-radius:8px;max-width:700px;margin:auto">
+  <div style="text-align:center;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:8px">
+    <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" style="width:60px;height:60px"><br>
+    <h2 style="margin:4px 0 0 0;">CITYCARE HOSPITAL</h2>
+    <p style="margin:0;font-size:14px;">South Extension Part-1, YourCity, India</p>
+    <h3 style="margin:4px 0;">Web Appointment</h3>
+  </div>
+
+  <table style="width:100%;font-size:14px;border-spacing:0;margin-bottom:8px">
+    <tr>
+      <td><strong>Patient ID :</strong> <span id="rid"></span></td>
+      <td><strong>Age :</strong> <span id="rage"></span></td>
+      <td><strong>Gender :</strong> <span id="rgender"></span></td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>Name :</strong> <span id="rname"></span></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Appointment Date :</strong> <span id="rdate"></span></td>
+      <td><strong>Token No :</strong> ______</td>
+    </tr>
+  </table>
+
+  <table style="width:100%;font-size:14px;border-spacing:0;margin-bottom:8px">
+    <tr><td><strong>Department :</strong> <span id="rdepartment"></span></td><td><strong>Room No :</strong> ______</td></tr>
+    <tr><td colspan="2"><strong>Doctor :</strong> <span id="rdoctor"></span></td></tr>
+    <tr><td colspan="2"><strong>Mode of Payment :</strong> <span id="rpayment"></span></td></tr>
+  </table>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;font-size:14px;margin-bottom:10px">
+    <div>
+      <p><strong>Invoice No:</strong> <span id="rinvoice"></span></p>
+      <p><strong>Bill No:</strong> <span id="rbill"></span></p>
+      <p><strong>Printed On:</strong> <span id="rprint"></span></p>
+    </div>
+    <div style="text-align:center">
+      <canvas id="barcode" style="width:150px"></canvas>
+      <div id="qrcode" style="margin-top:6px"></div>
+    </div>
+  </div>
+
+  <div style="border-top:1px solid #000;padding-top:6px;font-size:12px">
+    <p><strong>General Instructions:</strong></p>
+    <ol style="margin-left:20px">
+      <li>If the patient requires in-patient admission a female attendant is mandatory.</li>
+      <li>Appointment booked online will not be refunded.</li>
+      <li>Change of Department/Unit not allowed.</li>
+      <li>Change in appointment date allowed only once (up to one day prior to appointment).</li>
+      <li>Please provide Govt. ID proof when reporting at hospital.</li>
+    </ol>
+  </div>
+  
+  <div style="text-align:center;margin-top:8px;">
+    <button class="btn btn-primary" onclick="window.print()">Print Receipt</button>
+    <button class="btn btn-primary" onclick="closeReceipt()">Close</button>
+
+  </div>
+</div>
+
+
+
+  <footer>© <span id="year"></span> CityCare Hospital</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+
+menuToggle.addEventListener('click', () => {
+  if(mobileNav.style.display === 'block'){
+    mobileNav.style.display = 'none';
+  } else {
+    mobileNav.style.display = 'block';
+  }
+});
+
+// Close menu when clicking a link
+function closeMenu() {
+  mobileNav.style.display = 'none';
+}
+
+   // Hero background auto fade + slide effect
+const heroImages = document.querySelectorAll('.hero-bg img');
+let currentImage = 0;
+
+setInterval(() => {
+  heroImages[currentImage].classList.remove('active');
+  currentImage = (currentImage + 1) % heroImages.length;
+  heroImages[currentImage].classList.add('active');
+}, 3000); // 3 seconds per image
+
+document.getElementById('year').textContent=new Date().getFullYear();
+
+    document.getElementById('theme-toggle').addEventListener('click',function(){
+      document.body.classList.toggle('dark');
+      this.textContent=document.body.classList.contains('dark')?'Light':'Dark';
+    });
+
+    document.getElementById('pdepartment').addEventListener('change',updateDoctors);
+    function updateDoctors(){
+      const department=document.getElementById('pdepartment').value;
+      const doctorSelect=document.getElementById('pdoctor');
+      doctorSelect.innerHTML='<option value="">Select Doctor</option>';
+      let doctors={
+        'Cardiology':['Dr. Jyoti Chandra','Dr. Karishma Kamat'],
+        'Neurology':['Dr. Tripti ','Dr. Soheil'],
+        'Orthopedics':['Dr. Akash Kumar','Dr. Sumit Singh']
+      };
+      if(doctors[department]){
+        doctors[department].forEach(doc=>{
+          let option=document.createElement('option');
+          option.value=doc;option.textContent=doc;doctorSelect.appendChild(option);
+        });
+      }
+    }
+
+    document.getElementById('appointmentForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      this.style.display='none';
+      document.getElementById('rid').innerText = "PAT" + Math.floor(Math.random()*100000);
+      document.getElementById('rinvoice').innerText = "INV" + Math.floor(Math.random()*10000);
+      document.getElementById('rbill').innerText = "BILL" + Math.floor(Math.random()*10000);
+      document.getElementById('rprint').innerText = new Date().toLocaleString();
+      document.getElementById('receipt').style.display='block';
+      document.getElementById('rname').innerText=document.getElementById('pname').value;
+      document.getElementById('rage').innerText=document.getElementById('page').value;
+      document.getElementById('rgender').innerText=document.getElementById('pgender').value;
+      document.getElementById('rdate').innerText=document.getElementById('pdate').value;
+      document.getElementById('rdepartment').innerText=document.getElementById('pdepartment').value;
+      document.getElementById('rdoctor').innerText=document.getElementById('pdoctor').value;
+      document.getElementById('rpayment').innerText=document.getElementById('ppayment').value;
+      JsBarcode('#barcode', document.getElementById('pname').value + Date.now(), {
+  format: 'CODE128',
+  width: 1.5,
+  height: 40,
+  displayValue: false
+});
+    });
+  const reviewSlider=document.getElementById('reviewSlider');
+  const prevBtn=document.getElementById('prevReview');
+  const nextBtn=document.getElementById('nextReview');
+
+  function scrollNext(){
+    reviewSlider.scrollBy({left:270,behavior:'smooth'});
+    if(reviewSlider.scrollLeft+reviewSlider.clientWidth>=reviewSlider.scrollWidth){
+      reviewSlider.scrollTo({left:0,behavior:'smooth'});
+    }
+  }
+
+  let autoScroll=setInterval(scrollNext,3000);
+
+  nextBtn.addEventListener('click',()=>{
+    clearInterval(autoScroll);
+    scrollNext();
+    autoScroll=setInterval(scrollNext,3000);
+  });
+
+  prevBtn.addEventListener('click',()=>{
+    clearInterval(autoScroll);
+    reviewSlider.scrollBy({left:-270,behavior:'smooth'});
+    autoScroll=setInterval(scrollNext,3000);
+  });
+
+  // Pause auto scroll on hover
+  reviewSlider.addEventListener('mouseenter',()=>clearInterval(autoScroll));
+  reviewSlider.addEventListener('mouseleave',()=>autoScroll=setInterval(scrollNext,3000));
+
+  // QR Code - Full Patient Info Encode
+const patientData = {
+  id: document.getElementById('rid').innerText,
+  name: document.getElementById('pname').value,
+  age: document.getElementById('page').value,
+  gender: document.getElementById('pgender').value,
+  date: document.getElementById('pdate').value,
+  department: document.getElementById('pdepartment').value,
+  doctor: document.getElementById('pdoctor').value,
+  payment: document.getElementById('ppayment').value,
+  invoice: document.getElementById('rinvoice').innerText,
+  bill: document.getElementById('rbill').innerText
+};
+
+document.getElementById('qrcode').innerHTML = ""; // Reset QR before adding new one
+new QRCode(document.getElementById("qrcode"), {
+  text: JSON.stringify(patientData),
+  width: 90,
+  height: 90
+});
+function closeReceipt() {
+  document.getElementById('appointmentModal').style.display = 'none'; // Modal close
+  document.getElementById('appointmentForm').reset(); // Form reset
+  document.getElementById('appointmentForm').style.display = 'block'; // Form wapas dikhaye
+  document.getElementById('receipt').style.display = 'none'; // Receipt hide
+};
+  </script>
+</body>
+</html>
